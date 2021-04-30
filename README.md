@@ -5,9 +5,10 @@
 ###### Instalación
 1. Descargar de GIT el proyecto
 2. Crear una BD MySQL **kinandcarta**
-3. En la consola de comando, ir al directorio del proyecto y ejecutar: **php artisan migrate**
-4. Luego ejecutar: **php artisan db:seed**
-5. Para finalizar, ejecutar: **php artisan serve**
+3. En la consola de comando, ir al directorio del proyecto y ejecutar: **composer update**
+4. Ejecutar: **php artisan migrate**
+5. Ejecutar: **php artisan db:seed**
+6. Ejecutar: **php artisan serve**
 
 ###### API
 - URL: http://127.0.0.1:8000/api/all<br>
