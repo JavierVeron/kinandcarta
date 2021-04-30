@@ -1,0 +1,19 @@
+body {
+    color:#FFFFFF;
+    background-color:#000000;
+    font-family: Helvetica;
+    font-size:14px;
+}
+
+.background {
+    color:#1c1a23;
+}
+
+.background table {
+    color:#FFFFFF;
+    font-size:12px;
+}
+
+.background table button {
+    color:#FFFFFF;
+}
