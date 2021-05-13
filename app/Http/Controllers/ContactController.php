@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class ContactController extends Controller
 {
@@ -43,7 +41,7 @@ class ContactController extends Controller
         $contact = new Contact();
         $contact->name = $request->name;
         $contact->company = $request->company;
-        $contact->profileimage = $request->profileimage;
+        $contact->profileimage = (is_null($request->profileimage) ? "unkown.jpg" : $request->profileimage);
         $contact->email = $request->email;
         $contact->birthdate = $request->birthdate;
         $contact->phonenumber_work = $request->phonenumber_work;
@@ -145,16 +143,10 @@ class ContactController extends Controller
      */
     public function searchByValue($value)
     {
-        $contact = DB::table('contacts')
-                    ->where('name', 'LIKE', '%' .$value .'%')
-                    ->orWhere('company', 'LIKE', '%' .$value .'%')
-                    ->orWhere('email', 'LIKE', '%' .$value .'%')
-                    ->orWhere('phonenumber_work', 'LIKE', '%' .$value .'%')
-                    ->orWhere('phonenumber_personal', 'LIKE', '%' .$value .'%')
-                    ->first();
+        $contact = Contact::searchByValue($value);
 
         if ($contact) {
-            return response()->json(array("data" => $contact));
+            return response()->json(["data" => $contact]);
         }
 
         return response()->json(["status" => "error", "message" => "No se encontraron resultados!"]);
@@ -167,11 +159,7 @@ class ContactController extends Controller
      */
     public function getCities()
     {
-        $contacts = DB::table('contacts')
-                    ->select('city')
-                    ->distinct()
-                    ->orderBy('city')
-                    ->get();
+        $contacts = Contact::getCities();
 
         if ($contacts->count() > 0) {
             return new ContactResource($contacts);
@@ -187,11 +175,7 @@ class ContactController extends Controller
      */
     public function getStates()
     {
-        $contacts = DB::table('contacts')
-                    ->select('state')
-                    ->distinct()
-                    ->orderBy('state')
-                    ->get();
+        $contacts = Contact::getStates();
 
         if ($contacts->count() > 0) {
             return new ContactResource($contacts);
@@ -208,12 +192,7 @@ class ContactController extends Controller
      */
     public function getContacts($value)
     {
-        $contacts = DB::table('contacts')
-                    ->where('city', 'LIKE', '%' .$value .'%')
-                    ->orWhere('state', 'LIKE', '%' .$value .'%')
-                    ->orWhere('country', 'LIKE', '%' .$value .'%')
-                    ->orderBy('name')
-                    ->get();
+        $contacts = Contact::getContacts($value);
 
         if ($contacts->count() > 0) {
             return new ContactResource($contacts);

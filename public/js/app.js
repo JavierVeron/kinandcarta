@@ -1902,14 +1902,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _this.getCities();
+
+                _this.getStates();
+
+                _context.next = 4;
                 return axios.get('/api/all');
 
-              case 2:
+              case 4:
                 res = _context.sent;
                 _this.contactos = res.data.data;
 
-              case 4:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -38976,7 +38980,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Guardar")]
+              [_vm._v("Save")]
             ),
             _vm._v(" "),
             _c(
@@ -38990,7 +38994,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Cancelar")]
+              [_vm._v("Cancel")]
             )
           ])
         ])
@@ -39011,7 +39015,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Agregar (+)")]
+          [_vm._v("Add (+)")]
         )
       ]),
       _vm._v(" "),
@@ -39032,7 +39036,8 @@ var render = function() {
               id: "texto_busqueda",
               name: "texto_busqueda",
               placeholder: "Type Name, Company, Email or Phone",
-              "aria-describedby": "button-addon2"
+              "aria-describedby": "button-addon2",
+              title: "Type Name, Company, Email or Phone to search a Contact"
             },
             domProps: { value: _vm.texto_busqueda },
             on: {
@@ -39049,7 +39054,11 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-secondary",
-              attrs: { type: "button", id: "button-addon2" },
+              attrs: {
+                type: "button",
+                id: "button-addon2",
+                title: "Search Contacts"
+              },
               on: {
                 click: function($event) {
                   return _vm.buscar()
@@ -39228,6 +39237,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-secondary",
+                      attrs: { title: "Edit Contact" },
                       on: {
                         click: function($event) {
                           _vm.modificar = true
@@ -39242,6 +39252,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-secondary",
+                      attrs: { title: "Delete Contact" },
                       on: {
                         click: function($event) {
                           return _vm.eliminar(contact.id)

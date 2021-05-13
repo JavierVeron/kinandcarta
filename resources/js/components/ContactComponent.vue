@@ -29,6 +29,8 @@ export default {
   },
   methods: {
     async listar() {
+      this.getCities();
+      this.getStates();
       const res = await axios.get('/api/all');
       this.contactos = res.data.data;
     },
@@ -192,8 +194,8 @@ export default {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" @click="guardar();">Guardar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cerrarModal();">Cancelar</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" @click="guardar();">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cerrarModal();">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -201,12 +203,12 @@ export default {
 
         <div class="row">
             <div class="col-md-2">
-            <button type="button" class="btn btn-secondary" @click="modificar=false; abrirModal();">Agregar (+)</button>
+            <button type="button" class="btn btn-secondary" @click="modificar=false; abrirModal();">Add (+)</button>
             </div>
             <div class="col-md-4">
                 <div class="input-group mb-3 text-end">
-                <input type="text" id="texto_busqueda" name="texto_busqueda" class="form-control" placeholder="Type Name, Company, Email or Phone" aria-describedby="button-addon2" v-model="texto_busqueda">
-                <button type="button" class="btn btn-secondary"  id="button-addon2" @click="buscar();">Search</button>
+                <input type="text" id="texto_busqueda" name="texto_busqueda" class="form-control" placeholder="Type Name, Company, Email or Phone" aria-describedby="button-addon2" v-model="texto_busqueda" title="Type Name, Company, Email or Phone to search a Contact">
+                <button type="button" class="btn btn-secondary"  id="button-addon2" @click="buscar();" title="Search Contacts">Search</button>
                 </div>
             </div>
             <div class="col-md-3">
@@ -249,7 +251,7 @@ export default {
                         <td>{{contact.city}}</td>
                         <td>{{contact.state}}</td>
                         <td>{{contact.country}}</td>
-                        <td><button class="btn btn-secondary" @click="modificar=true; abrirModal(contact);">Edit</button>&nbsp;<button class="btn btn-secondary" @click="eliminar(contact.id)">Delete</button></td>
+                        <td><button class="btn btn-secondary" @click="modificar=true; abrirModal(contact);" title="Edit Contact">Edit</button>&nbsp;<button class="btn btn-secondary" @click="eliminar(contact.id)" title="Delete Contact">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
